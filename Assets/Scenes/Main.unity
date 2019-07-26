@@ -73,7 +73,7 @@ LightmapSettings:
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
-    m_BakeBackend: 2
+    m_BakeBackend: 1
     m_PVRSampling: 1
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
@@ -556,6 +556,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Drone (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950857845516635301, guid: 2f41e7fc2ff59554bbc736c8b93eea50,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2950857845516931205, guid: 2f41e7fc2ff59554bbc736c8b93eea50,
         type: 3}
@@ -2271,6 +2276,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drone (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2950857845516635301, guid: 2f41e7fc2ff59554bbc736c8b93eea50,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2950857845516931205, guid: 2f41e7fc2ff59554bbc736c8b93eea50,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3084,6 +3094,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drone (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2950857845516635301, guid: 2f41e7fc2ff59554bbc736c8b93eea50,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2950857845516931205, guid: 2f41e7fc2ff59554bbc736c8b93eea50,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3227,6 +3242,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Drone (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950857845516635301, guid: 2f41e7fc2ff59554bbc736c8b93eea50,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2950857845516931205, guid: 2f41e7fc2ff59554bbc736c8b93eea50,
         type: 3}
@@ -3721,6 +3741,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Drone (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950857845516635301, guid: 2f41e7fc2ff59554bbc736c8b93eea50,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2950857845516931205, guid: 2f41e7fc2ff59554bbc736c8b93eea50,
         type: 3}
@@ -5751,6 +5776,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drone (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2950857845516635301, guid: 2f41e7fc2ff59554bbc736c8b93eea50,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2950857845516931205, guid: 2f41e7fc2ff59554bbc736c8b93eea50,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6955,6 +6985,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Drone 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950857845516635301, guid: 2f41e7fc2ff59554bbc736c8b93eea50,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2950857845516931205, guid: 2f41e7fc2ff59554bbc736c8b93eea50,
         type: 3}
@@ -8493,6 +8528,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Drone (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2950857845516635301, guid: 2f41e7fc2ff59554bbc736c8b93eea50,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2950857845516931205, guid: 2f41e7fc2ff59554bbc736c8b93eea50,
         type: 3}
@@ -15175,11 +15215,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2950857845516635303, guid: 2f41e7fc2ff59554bbc736c8b93eea50,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f41e7fc2ff59554bbc736c8b93eea50, type: 3}

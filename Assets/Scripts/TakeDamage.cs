@@ -11,16 +11,20 @@ public class TakeDamage : MonoBehaviour
     private Rigidbody rb;
     private DroneMovement dm;
     private Animator animator;
-    private bool isAlive = true;
+    public bool isAlive = true;
+    public MeshCollider[] colliders;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         dm = GetComponent<DroneMovement>();
         animator = GetComponent<Animator>();
+        colliders = GetComponentsInChildren<MeshCollider>(false);
+        
     }
 
-    public void takeDamage(float damage, RaycastHit hit, Vector3 shootingDirection)
+    public void takeDamage(float damage, RaycastHit hit, Ray r, LayerMask m)
     {
         health -= damage;
 
@@ -29,8 +33,11 @@ public class TakeDamage : MonoBehaviour
 
         dm.currentState = DroneMovement.moveState.GOT_HIT;
         rb.isKinematic = false;
-        rb.AddForceAtPosition((shootingDirection - hit.normal) * hitForceFactor, hit.point);
+        rb.AddForceAtPosition((r.direction.normalized - hit.normal) * hitForceFactor, hit.point);
         Invoke("recoverFromHit", recoverTime);
+
+       
+        
 
         DamageLogicForShader[] _items = hit.transform.GetComponentsInChildren<DamageLogicForShader>(false);
 
@@ -48,6 +55,7 @@ public class TakeDamage : MonoBehaviour
         rb.useGravity = true;
         dm.enabled = false;
         animator.enabled = false;
+        //concaveCollider.enabled = false;
        
     }
     private void recoverFromHit()

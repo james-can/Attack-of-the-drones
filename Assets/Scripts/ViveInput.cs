@@ -23,6 +23,7 @@ public class ViveInput : MonoBehaviour
     private MaterialPropertyBlock propBlock;
     private Renderer _renderer;
 
+
     [SerializeField] GameObject sparkParticlePrefab;
     [SerializeField] float hitDamage = 35f;
     [SerializeField] bool useMouseForTesting = false;
@@ -59,10 +60,10 @@ public class ViveInput : MonoBehaviour
         {
             
             
-            Rigidbody r = Instantiate<Rigidbody>(shellPrefab.GetComponent<Rigidbody>(), shellOrigin.position, shellOrigin.rotation);
+            Rigidbody rb = Instantiate<Rigidbody>(shellPrefab.GetComponent<Rigidbody>(), shellOrigin.position, shellOrigin.rotation);
 
             // If this were attached to the gun itself, could use Vector3.right here instead, it'd be a helluvalot simpler
-            r.velocity =  Vector3.Normalize(shellDirectionVector.position - shellOrigin.position); 
+            rb.velocity =  Vector3.Normalize(shellDirectionVector.position - shellOrigin.position); 
 
             if(!useMouseForTesting)
                 SteamVR_Input.GetAction<SteamVR_Action_Vibration>("Haptic").Execute(0, vibrationDuration, vibrationFrequency, vibrationAmplitute, source);
@@ -74,19 +75,46 @@ public class ViveInput : MonoBehaviour
             RaycastHit hit = new RaycastHit();
             
             bool is2dHit = useMouseForTesting && Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, 300f, mask); // click to fire at the drones on desktop
-            
-            if (is2dHit || Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hit, 300f, mask))
+            Ray r = new Ray(rayOrigin.position, rayOrigin.forward);
+            if (is2dHit || Physics.Raycast(r, out hit, Mathf.Infinity, mask))
             {
-                Instantiate(sparkParticlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
-                hit.transform.gameObject.GetComponents<AudioSource>()[0].Play();
-                hit.transform.GetComponent<TakeDamage>().takeDamage(hitDamage, hit, rayOrigin.forward.normalized);
+                TakeDamage td = hit.transform.GetComponent<TakeDamage>();
 
-                print("textureCoord.x: " + hit.textureCoord.x);
-                print("textureCoord.y: " + hit.textureCoord.y);
-                print("hit object name: " + hit.transform.name);
+                
+                MeshCollider convex;
+                MeshCollider concave;
+                if (td.colliders[0].convex)
+                {
+                    convex = td.colliders[0];
+                    concave = td.colliders[1];
+                }
+                else
+                {
+                    concave = td.colliders[0];
+                    convex = td.colliders[1];
+                }
 
 
                 
+
+                RaycastHit hit2;
+
+                bool isHit = Physics.Raycast(r, out hit2, Mathf.Infinity, mask);
+
+                print("isHit: " + isHit);
+
+                Instantiate(sparkParticlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
+                hit.transform.gameObject.GetComponents<AudioSource>()[0].Play();
+                td.takeDamage(hitDamage, hit2, r, mask);
+
+                
+
+                /*print("textureCoord.x: " + hit.textureCoord.x);
+                print("textureCoord.y: " + hit.textureCoord.y);
+                print("hit object name: " + hit.transform.name);*/
+
+
+
             }
         }
     }
