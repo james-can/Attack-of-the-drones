@@ -32,6 +32,13 @@ public class TakeDamage : MonoBehaviour
         rb.AddForceAtPosition((shootingDirection - hit.normal) * hitForceFactor, hit.point);
         Invoke("recoverFromHit", recoverTime);
 
+        DamageLogicForShader[] _items = hit.transform.GetComponentsInChildren<DamageLogicForShader>(false);
+
+        foreach (DamageLogicForShader _item in _items)
+        {
+            _item.updateShaderDamage(new Vector4(hit.textureCoord.x, hit.textureCoord.y));
+        }
+
     }
     private void die()
     {

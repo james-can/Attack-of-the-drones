@@ -4,7 +4,7 @@ Shader "CustomStandard"
 {
     Properties
     {
-		[PerRendererData]_uvHitPoint("UV Hit Point", Vector) = (0.0, 0.0, 0.0, 0.0)
+		_totalHits("Total hits", Int) = 0
 		_damageRadiusThreshold("Damage Radius Threshold", Float) = 1.0
 		
         _Color("Color", Color) = (1,1,1,1)

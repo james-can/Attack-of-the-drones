@@ -86,12 +86,7 @@ public class ViveInput : MonoBehaviour
                 print("hit object name: " + hit.transform.name);
 
 
-                DamageLogicForShader[] _items = hit.transform.GetComponentsInChildren<DamageLogicForShader>(false);
                 
-                foreach(DamageLogicForShader _item in _items)
-                {
-                    _item.updateShaderDamage(new Vector4(hit.textureCoord.x, hit.textureCoord.y));
-                }
             }
         }
     }
