@@ -47,9 +47,14 @@ public class TakeDamage : MonoBehaviour
         }
 
     }
+
+  
+
     private void die()
     {
         // TODO: make the red light go off
+
+        gameObject.layer = 9;  //This is so you can still shoot the drone around when it dies.
         hitForceFactor = 200f;
         isAlive = false;
         rb.useGravity = true;
