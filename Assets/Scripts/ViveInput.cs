@@ -80,32 +80,17 @@ public class ViveInput : MonoBehaviour
             {
                 TakeDamage td = hit.transform.GetComponent<TakeDamage>();
 
-                
-                MeshCollider convex;
-                MeshCollider concave;
-                if (td.colliders[0].convex)
-                {
-                    convex = td.colliders[0];
-                    concave = td.colliders[1];
-                }
-                else
-                {
-                    concave = td.colliders[0];
-                    convex = td.colliders[1];
-                }
+
+               
 
 
                 
 
-                RaycastHit hit2;
-
-                bool isHit = Physics.Raycast(r, out hit2, Mathf.Infinity, mask);
-
-                print("isHit: " + isHit);
+               
 
                 Instantiate(sparkParticlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
                 hit.transform.gameObject.GetComponents<AudioSource>()[0].Play();
-                td.takeDamage(hitDamage, hit2, r, mask);
+                td.takeDamage(hitDamage, hit, r, mask);
 
                 
 

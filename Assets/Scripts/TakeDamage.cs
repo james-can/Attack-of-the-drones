@@ -12,7 +12,7 @@ public class TakeDamage : MonoBehaviour
     private DroneMovement dm;
     private Animator animator;
     public bool isAlive = true;
-    public MeshCollider[] colliders;
+    
 
 
     void Start()
@@ -20,7 +20,7 @@ public class TakeDamage : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         dm = GetComponent<DroneMovement>();
         animator = GetComponent<Animator>();
-        colliders = GetComponentsInChildren<MeshCollider>(false);
+        
         
     }
 
