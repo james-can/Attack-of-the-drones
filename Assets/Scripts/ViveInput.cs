@@ -30,6 +30,12 @@ public class ViveInput : MonoBehaviour
     [SerializeField] new Camera camera;
     [SerializeField] Material droneMaterial;
 
+    public delegate void GunFireAction();
+    public static event GunFireAction OnGunFired;
+
+    public delegate void RaycastCompletedAction();
+    public static event RaycastCompletedAction OnRaycastCompleted;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,6 +77,7 @@ public class ViveInput : MonoBehaviour
             shotgunBlast.Play();
             
             
+           
 
             RaycastHit hit = new RaycastHit();
             
@@ -101,6 +108,7 @@ public class ViveInput : MonoBehaviour
 
 
             }
+        
         }
     }
 

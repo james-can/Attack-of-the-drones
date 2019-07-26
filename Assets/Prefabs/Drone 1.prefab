@@ -135,7 +135,7 @@ MonoBehaviour:
     m_Bits: 256
   _slerpStepFactor: 0.1
   redirectThreshold: 2
-  forwardSpeed: 0.2
+  forwardSpeed: 2
   useDummyHelper: 0
   lookAheadRange: {x: 7, y: 10}
   distanceLimit: 5

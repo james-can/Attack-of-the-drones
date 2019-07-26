@@ -12,8 +12,9 @@ public class TakeDamage : MonoBehaviour
     private DroneMovement dm;
     private Animator animator;
     public bool isAlive = true;
-    
+   
 
+    
 
     void Start()
     {
@@ -47,6 +48,8 @@ public class TakeDamage : MonoBehaviour
         }
 
     }
+
+  
 
   
 
