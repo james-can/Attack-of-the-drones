@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.droneinvasion.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "D:\\Projects\\Unity\\Attack-of-the-drones\\Attack-of-the-drones\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "Attack of the Drones [Testing]"
+        }
+      }
+    }
+  ]
+}
