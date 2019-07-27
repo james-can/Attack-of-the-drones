@@ -30,22 +30,28 @@ public class LaserLine : MonoBehaviour
         line = GetComponent<LineRenderer>();
         minY = GameObject.Find("MinY").GetComponent<Transform>();
         //parentTransform = GetComponentInParent<Tra>
-        //InvokeRepeating("checkForNewDestination", 1.0f, .3f);
+        InvokeRepeating("checkForNewDestination", 1.0f, .1f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        float dist = Vector3.Distance(destinationPoint, line.GetPosition(1));
-        if (dist < redirectThreshold)
-        {
-            setDestination();
-        }
+        float dist = checkForNewDestination();
 
         line.SetPosition(0, rootTransform.position + rootTransform.forward * originOffset);
         line.SetPosition(1, Vector3.MoveTowards(line.GetPosition(1), destinationPoint, Time.deltaTime * lazerAnimateSpeed * (dist * distanceAdjustmentFactor)));
         
     }
+
+    private float checkForNewDestination() {
+        float dist = Vector3.Distance(destinationPoint, line.GetPosition(1));
+        if (dist < redirectThreshold)
+        {
+            setDestination();
+        }
+        return dist;
+    }
+
     private void setDestination()
     {
         // -.63 is the y position value of the MinY game object. for some reason wasn't able to 
