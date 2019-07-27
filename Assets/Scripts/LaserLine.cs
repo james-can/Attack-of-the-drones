@@ -7,11 +7,20 @@ public class LaserLine : MonoBehaviour
     LineRenderer line;
     [SerializeField] float laserRange = 100;
     [SerializeField] float lazerAnimateSpeed = 2;
-    [SerializeField] Vector2 xRange;
-    [SerializeField] Vector2 yRange;
-    [SerializeField] Vector2 zRange;
+    [SerializeField] public Vector2 xRange;
+    [SerializeField] public Vector2 yRange;
+    
+    [SerializeField]  float originOffset = .1f;
     [SerializeField] float redirectThreshold = .5f;
+    [SerializeField] float distanceAdjustmentFactor;
+    Transform minY;
+
+    [Tooltip("How much more deviation in the rotation of the lasers")]
+
+    public Transform rootTransform;
     private Vector3 destinationPoint;
+    private Vector3 rayDirection;
+ 
     //private Transform parentTransform;
     
     // Start is called before the first frame update
@@ -19,6 +28,7 @@ public class LaserLine : MonoBehaviour
     {
         setDestination();
         line = GetComponent<LineRenderer>();
+        minY = GameObject.Find("MinY").GetComponent<Transform>();
         //parentTransform = GetComponentInParent<Tra>
         //InvokeRepeating("checkForNewDestination", 1.0f, .3f);
     }
@@ -26,27 +36,31 @@ public class LaserLine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float dist = Vector3.Distance(destinationPoint, line.GetPosition(1));
+        if (dist < redirectThreshold)
+        {
+            setDestination();
+        }
+
+        line.SetPosition(0, rootTransform.position + rootTransform.forward * originOffset);
+        line.SetPosition(1, Vector3.MoveTowards(line.GetPosition(1), destinationPoint, Time.deltaTime * lazerAnimateSpeed * (dist * distanceAdjustmentFactor)));
         
-        line.SetPosition(1, Vector3.MoveTowards(line.GetPosition(1), destinationPoint, Time.deltaTime * lazerAnimateSpeed));
-        checkForNewDestination();
     }
     private void setDestination()
     {
+        // -.63 is the y position value of the MinY game object. for some reason wasn't able to 
+        // programatically retrieve the value
+        float relativeHeight = rootTransform.position.y - -.63f;
+
+
         float x = Random.Range(xRange.x, xRange.y); 
         float y = Random.Range(yRange.x, yRange.y);
 
 
-
-        destinationPoint = transform.position + Vector3.Normalize((Vector3.forward + new Vector3(x, y, 0))) * laserRange;
+        rayDirection =  Vector3.Normalize((rootTransform.forward + new Vector3(x / ( 2 * relativeHeight), y  / (2 * relativeHeight), 0)));
+        destinationPoint = rootTransform.position + rayDirection * laserRange;
         print("destination point: " + destinationPoint);
     }
-    private void checkForNewDestination()
-    {
-        
-        if(Vector3.Distance(destinationPoint, line.GetPosition(1)) < redirectThreshold)
-        {
-            setDestination();
-        }
-    }
+    
 
 }

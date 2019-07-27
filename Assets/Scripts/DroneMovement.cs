@@ -26,14 +26,18 @@ public class DroneMovement : MonoBehaviour
     private float maxZ;
     private float minZ;
     private float maxY;
-    private float minY;
-    public enum moveState { WANDER, GOT_HIT }
+    [HideInInspector] public float minY;
+    public enum moveState { WANDER, GOT_HIT, DEAD }
     public moveState currentState = moveState.WANDER;
+    private LaserLine[] lasers;
     //private int health = 100;
     private Transform dummyTransform;
+
     void Start()
     {
-        if(useDummyHelper)
+        lasers = GetComponentsInChildren<LaserLine>();
+
+        if (useDummyHelper)
             dummyTransform = GameObject.Find("DummyHelper").GetComponent<Transform>();
 
         destination = transform.position + Vector3.forward;
@@ -49,12 +53,27 @@ public class DroneMovement : MonoBehaviour
         maxY = GameObject.Find("MaxY").GetComponent<Transform>().position.y;
 
     }
+    /*[SerializeField] Vector2 laserXRange = new Vector2(-1.5f, 1.5f);
+    [SerializeField] Vector2 laserYRange = new Vector2(-1.5f, 1.5f);
+    [SerializeField] float  zVal = -2.0f;
+    [SerializeField] float originOffset;*/
+    /*void setLaserRange()
+    {
+        foreach(LaserLine l in lasers)
+        {
+            l.xRange = laserXRange;
+            l.yRange = laserYRange;
+            l.zValue = zVal;
+            l.originOffset = originOffset;
+        }
+    }*/
 
     // Update is called once per frame
     float dist;
     float _slerpStep;
     void Update()
     {
+        
         switch (currentState)
         {
             case moveState.WANDER:
@@ -128,6 +147,8 @@ public class DroneMovement : MonoBehaviour
         
         return hits.Length != 0;
     }
+
+    
 
     /*public void takeDamage(int damage)
     {

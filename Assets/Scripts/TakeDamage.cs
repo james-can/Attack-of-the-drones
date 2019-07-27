@@ -12,8 +12,8 @@ public class TakeDamage : MonoBehaviour
     private DroneMovement dm;
     private Animator animator;
     public bool isAlive = true;
-   
 
+    private GameObject laserGroup;
     
 
     void Start()
@@ -21,7 +21,7 @@ public class TakeDamage : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         dm = GetComponent<DroneMovement>();
         animator = GetComponent<Animator>();
-        
+        laserGroup = transform.GetChild(3).GetChild(0).gameObject;
         
     }
 
@@ -63,6 +63,10 @@ public class TakeDamage : MonoBehaviour
         rb.useGravity = true;
         dm.enabled = false;
         animator.enabled = false;
+        laserGroup.SetActive(false);
+        dm.currentState = DroneMovement.moveState.DEAD;
+
+
         //concaveCollider.enabled = false;
        
     }
