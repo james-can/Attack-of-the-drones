@@ -85,29 +85,23 @@ public class ViveInput : MonoBehaviour
             Ray r = new Ray(rayOrigin.position, rayOrigin.forward);
             if (is2dHit || Physics.Raycast(r, out hit, Mathf.Infinity, mask))
             {
+                print("hit object name: " + hit.transform.name);
                 TakeDamage td = hit.transform.GetComponent<TakeDamage>();
 
-
                
 
+                ParticleSystem p = Instantiate<ParticleSystem>(sparkParticlePrefab.GetComponent<ParticleSystem>(), hit.point, Quaternion.LookRotation(hit.normal));
 
-                
+                ParticleSystem.MainModule main = p.main;
 
-               
+                main.startSpeed = 80f * ((100 - td.health) / 10);
 
-                Instantiate(sparkParticlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
-                
                 td.takeDamage(hitDamage, hit, r, mask);
-
-                hit.transform.gameObject.GetComponents<AudioSource>()[td.isAlive ? 0 : 1].Play();
-
-
+                hit.transform.GetComponent<AudioSource>().Play();
 
                 /*print("textureCoord.x: " + hit.textureCoord.x);
                 print("textureCoord.y: " + hit.textureCoord.y);
-                print("hit object name: " + hit.transform.name);*/
-
-
+                */
 
             }
         
