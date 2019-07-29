@@ -96,10 +96,12 @@ public class ViveInput : MonoBehaviour
                
 
                 Instantiate(sparkParticlePrefab, hit.point, Quaternion.LookRotation(hit.normal));
-                hit.transform.gameObject.GetComponents<AudioSource>()[0].Play();
+                
                 td.takeDamage(hitDamage, hit, r, mask);
 
-                
+                hit.transform.gameObject.GetComponents<AudioSource>()[td.isAlive ? 0 : 1].Play();
+
+
 
                 /*print("textureCoord.x: " + hit.textureCoord.x);
                 print("textureCoord.y: " + hit.textureCoord.y);

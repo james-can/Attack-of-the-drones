@@ -65,7 +65,7 @@ public class LaserLine : MonoBehaviour
 
         rayDirection =  Vector3.Normalize((rootTransform.forward + new Vector3(x / ( 2 * relativeHeight), y  / (2 * relativeHeight), 0)));
         destinationPoint = rootTransform.position + rayDirection * laserRange;
-        print("destination point: " + destinationPoint);
+        
     }
     
 
