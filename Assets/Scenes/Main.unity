@@ -12543,15 +12543,15 @@ MonoBehaviour:
     type: 3}
   speed: 2
   source: 0
-  vibrationDuration: 2
-  vibrationAmplitute: 5
-  vibrationFrequency: 3
+  vibrationDuration: 0.2
+  vibrationAmplitute: 0.99
+  vibrationFrequency: 30
   mask:
     serializedVersion: 2
     m_Bits: 512
   sparkParticlePrefab: {fileID: 3363889129076440281, guid: be4db11f75359c041ac71be6a84fdabc,
     type: 3}
-  hitDamage: 100
+  hitDamage: 20
   useMouseForTesting: 0
   camera: {fileID: 1828431095}
   droneMaterial: {fileID: 2100000, guid: 19ffc6fff1290d545924f4f81817f739, type: 2}

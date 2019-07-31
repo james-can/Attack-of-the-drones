@@ -1,7 +1,7 @@
 {
    "action_manifest_version" : 0,
    "alias_info" : {},
-   "app_key" : "application.generated.unity.droneinvasion.exe",
+   "app_key" : "application.generated.unity.attackofthedrones.exe",
    "bindings" : {
       "/actions/buggy" : {
          "chords" : [],
@@ -292,15 +292,6 @@
             {
                "inputs" : {
                   "click" : {
-                     "output" : "/actions/shooting/in/fire"
-                  }
-               },
-               "mode" : "trigger",
-               "path" : "/user/hand/right/input/trigger"
-            },
-            {
-               "inputs" : {
-                  "click" : {
                      "output" : "/actions/shooting/in/drop"
                   }
                },
@@ -318,18 +309,6 @@
                },
                "mode" : "trigger",
                "path" : "/user/hand/right/input/trigger"
-            },
-            {
-               "inputs" : {
-                  "click" : {
-                     "output" : "/actions/shooting/in/fire"
-                  },
-                  "pull" : {
-                     "output" : "/actions/shooting/in/triggerpullanimate"
-                  }
-               },
-               "mode" : "trigger",
-               "path" : "/user/hand/left/input/trigger"
             },
             {
                "inputs" : {},
