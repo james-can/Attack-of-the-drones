@@ -40,7 +40,7 @@ public class DroneMovement : MonoBehaviour
         if (useDummyHelper)
             dummyTransform = GameObject.Find("DummyHelper").GetComponent<Transform>();
 
-        destination = transform.position + Vector3.forward;
+        
         //initialPos = transform.position;
         //initialRot = transform.rotation;
 
@@ -51,6 +51,10 @@ public class DroneMovement : MonoBehaviour
         maxZ = GameObject.Find("MaxZ").GetComponent<Transform>().position.z;
         minY = GameObject.Find("MinY").GetComponent<Transform>().position.y;
         maxY = GameObject.Find("MaxY").GetComponent<Transform>().position.y;
+
+        direction = Vector3.forward;
+        destination = transform.position + direction * lookAheadDistance;
+
 
     }
     /*[SerializeField] Vector2 laserXRange = new Vector2(-1.5f, 1.5f);
@@ -69,8 +73,8 @@ public class DroneMovement : MonoBehaviour
     }*/
 
     // Update is called once per frame
-    float dist;
-    float _slerpStep;
+    float dist = .0001f;
+    float _slerpStep = 1f;
     void Update()
     {
         
@@ -91,11 +95,16 @@ public class DroneMovement : MonoBehaviour
                     makeNewDestination();
 
                     if (i == 9)  // The drone escaped the bounds, bring it back to right over the yard
+                    {
+                        
                         destination = new Vector3(-.15f, 6.84f, -12.49f);
+                        direction = (destination - transform.position).normalized;
+                    }
+                        
                 }
 
 
-                this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), _slerpStep);
+                this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), _slerpStep * Time.deltaTime);
 
 
                 this.transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * forwardSpeed);  //.Translate(Vector3.forward + Time.deltaTime * forwardSpeed);
@@ -108,11 +117,14 @@ public class DroneMovement : MonoBehaviour
                 break;
         }
     }
+
+    
+
     void makeNewDestination()
     {
         lookAheadDistance = Random.Range(lookAheadRange.x, lookAheadRange.y);
-        float x = Random.Range(-1f, 1f);  // only a 45 degree range of verticle randomness
-        float y = Random.Range(-.2f, .2f); // 360 degrees of  randomness
+        float x = Random.Range(-1f, 1f);    // 360 degrees of  randomness  
+        float y = Random.Range(-.2f, .2f);  // only a 45 degree range of verticle randomness
         float z = Random.Range(-1f, 1f );
         //print("min phi: " + (-Mathf.PI / 16 - Mathf.PI / 2) * (180 / Mathf.PI));
         //print("max phi: " + (Mathf.PI / 16 - Mathf.PI / 2) * (180 / Mathf.PI));
@@ -126,10 +138,10 @@ public class DroneMovement : MonoBehaviour
 
         //print("makeNewDestionation() called");
 
-        if(useDummyHelper)
+        if (useDummyHelper)
             dummyTransform.position = destination;
 
-        
+
     }
     private bool pathIsBlocked()
     {

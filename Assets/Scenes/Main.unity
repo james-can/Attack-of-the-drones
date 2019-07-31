@@ -2592,13 +2592,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 400418765}
-  m_LocalRotation: {x: -0, y: -0.9999553, z: -0, w: -0.009457638}
-  m_LocalPosition: {x: 0.28999996, y: 2.49, z: 14.88}
+  m_LocalRotation: {x: -0, y: -0.99892354, z: -0, w: -0.046388384}
+  m_LocalPosition: {x: 0.28999996, y: 2.4899998, z: 14.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 242011048}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: -181.08398, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -185.318, z: 0}
 --- !u!1 &408933247
 GameObject:
   m_ObjectHideFlags: 0
@@ -10412,13 +10412,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1566321604}
-  m_LocalRotation: {x: -0, y: -0.94674003, z: -0, w: 0.32199913}
+  m_LocalRotation: {x: -0, y: -0.96060014, z: -0, w: 0.27793422}
   m_LocalPosition: {x: 13.98, y: 3.21, z: 14.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 242011048}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -142.432, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -147.72601, z: 0}
 --- !u!1 &1566482754
 GameObject:
   m_ObjectHideFlags: 0
@@ -12238,13 +12238,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1798883326}
-  m_LocalRotation: {x: -0, y: -0.9638997, z: -0, w: -0.26626593}
+  m_LocalRotation: {x: -0, y: 0.91393596, z: -0, w: 0.40585852}
   m_LocalPosition: {x: -11.5, y: 0, z: 13.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 242011048}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: -210.88399, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 132.11, z: 0}
 --- !u!1 &1821980921
 GameObject:
   m_ObjectHideFlags: 0
@@ -12552,7 +12552,7 @@ MonoBehaviour:
   sparkParticlePrefab: {fileID: 3363889129076440281, guid: be4db11f75359c041ac71be6a84fdabc,
     type: 3}
   hitDamage: 20
-  useMouseForTesting: 0
+  useMouseForTesting: 1
   camera: {fileID: 1828431095}
   droneMaterial: {fileID: 2100000, guid: 19ffc6fff1290d545924f4f81817f739, type: 2}
 --- !u!4 &1892084419

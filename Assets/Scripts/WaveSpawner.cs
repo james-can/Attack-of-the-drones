@@ -75,7 +75,8 @@ public class WaveSpawner : MonoBehaviour
     {
         print("spawnEneymy was called");
         Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length - 1)];
-        Instantiate(enemy, randomSpawnPoint.position, randomSpawnPoint.rotation);
+        Instantiate(enemy, randomSpawnPoint);
+        
     }
 
     bool EnemyIsAlive()
