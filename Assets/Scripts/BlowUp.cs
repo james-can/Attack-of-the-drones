@@ -5,7 +5,7 @@ using UnityEngine;
 public class BlowUp : MonoBehaviour
 {
     [SerializeField] float radius = 5;
-    [SerializeField] float force = 5;
+    [SerializeField] Vector2 forceRange = new Vector2(250, 1000);
     [SerializeField] GameObject explosionParticles;
     private void OnEnable()
     {
@@ -13,7 +13,7 @@ public class BlowUp : MonoBehaviour
         Instantiate(explosionParticles, transform.position, Quaternion.identity);
         foreach(Transform t in transform)
         {
-            t.GetComponent<Rigidbody>().AddExplosionForce(force, transform.position, radius);
+            t.GetComponent<Rigidbody>().AddExplosionForce(Random.Range(forceRange.x, forceRange.y), transform.position, radius);
         }
     }
 }

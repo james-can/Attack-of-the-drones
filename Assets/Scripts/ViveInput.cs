@@ -93,8 +93,12 @@ public class ViveInput : MonoBehaviour
                 ParticleSystem p = Instantiate<ParticleSystem>(sparkParticlePrefab.GetComponent<ParticleSystem>(), hit.point, Quaternion.LookRotation(hit.normal));
 
                 ParticleSystem.MainModule main = p.main;
+                ParticleSystem.Burst burst = new ParticleSystem.Burst(0, 10 * (100 - td.health));
+                p.emission.SetBurst(0, burst);
 
-                main.startSpeed = 80f * ((100 - td.health) / 10);
+                main.startSpeed = 160f * ((100 - td.health) / 25);
+                main.startLifetime = .4f * (td.health / 100);
+                
 
                 td.takeDamage(hitDamage, hit, r, mask);
                 hit.transform.GetComponent<AudioSource>().Play();

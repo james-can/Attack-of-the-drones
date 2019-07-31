@@ -1501,8 +1501,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f96e60f66398aa459714dfb0340b69b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 5
-  force: 100
+  radius: 50
+  forceRange: {x: 50, y: 1000}
   explosionParticles: {fileID: 967195066888538130, guid: 04c26365c17d83b4d83481b1320ca0b4,
     type: 3}
 --- !u!54 &1112896072824490480

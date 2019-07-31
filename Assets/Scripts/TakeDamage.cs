@@ -12,7 +12,7 @@ public class TakeDamage : MonoBehaviour
     private DroneMovement dm;
     private Animator animator;
     public bool isAlive = true;
-
+    private MeshCollider meshCollider;
     private GameObject laserGroup;
     
 
@@ -21,8 +21,9 @@ public class TakeDamage : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         dm = GetComponent<DroneMovement>();
         animator = GetComponent<Animator>();
+        meshCollider = GetComponent<MeshCollider>();
         //laserGroup = transform.GetChild(3).GetChild(0).gameObject;
-        
+
     }
 
     public void takeDamage(float damage, RaycastHit hit, Ray r, LayerMask m)
@@ -67,6 +68,7 @@ public class TakeDamage : MonoBehaviour
         //hitForceFactor = 200f;
         isAlive = false;
         Destroy(rb); // don't want to interfere with the soon to be activated child rigid bodies
+        Destroy(meshCollider); // need this for so it doesn't act like a static collider after destroying rigidbody
         dm.enabled = false;
         animator.enabled = false;
         //laserGroup.SetActive(false);
