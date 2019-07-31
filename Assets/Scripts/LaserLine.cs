@@ -13,7 +13,7 @@ public class LaserLine : MonoBehaviour
     [SerializeField]  float originOffset = .1f;
     [SerializeField] float redirectThreshold = .5f;
     [SerializeField] float distanceAdjustmentFactor;
-    Transform minY;
+    float minY;
 
     [Tooltip("How much more deviation in the rotation of the lasers")]
 
@@ -28,7 +28,7 @@ public class LaserLine : MonoBehaviour
     {
         setDestination();
         line = GetComponent<LineRenderer>();
-        minY = GameObject.Find("MinY").GetComponent<Transform>();
+        minY = GameObject.Find("DroneBoundary/MinY").GetComponent<Transform>().position.y;
         //parentTransform = GetComponentInParent<Tra>
         InvokeRepeating("checkForNewDestination", 1.0f, .1f);
     }
@@ -56,7 +56,7 @@ public class LaserLine : MonoBehaviour
     {
         // -.63 is the y position value of the MinY game object. for some reason wasn't able to 
         // programatically retrieve the value
-        float relativeHeight = rootTransform.position.y - -.63f;
+        float relativeHeight = rootTransform.position.y - minY;// -.63f;
 
 
         float x = Random.Range(xRange.x, xRange.y); 

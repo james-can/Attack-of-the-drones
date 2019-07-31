@@ -40,7 +40,7 @@ public class TakeDamage : MonoBehaviour
 
         dm.currentState = DroneMovement.moveState.GOT_HIT;
         rb.isKinematic = false;
-        rb.AddForceAtPosition((r.direction.normalized - hit.normal) * (hitForceFactor * ((100 - health)/5)) , hit.point);
+        rb.AddForceAtPosition((r.direction.normalized - hit.normal) * (hitForceFactor * ((100 - health)/30)) , hit.point);
         Invoke("recoverFromHit", recoverTime);
 
        
