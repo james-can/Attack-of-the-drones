@@ -13,7 +13,7 @@ public class BlowUp : MonoBehaviour
         Instantiate(explosionParticles, transform.position, Quaternion.identity);
         foreach(Transform t in transform)
         {
-            t.GetComponent<Rigidbody>().AddExplosionForce(Random.Range(forceRange.x, forceRange.y), transform.position, radius);
+            t.GetComponent<Rigidbody>().AddExplosionForce(100, transform.position, 5f);
         }
     }
 }

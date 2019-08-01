@@ -68,7 +68,7 @@ public class TakeDamage : MonoBehaviour
         //hitForceFactor = 200f;
         isAlive = false;
         Destroy(rb); // don't want to interfere with the soon to be activated child rigid bodies
-        Destroy(meshCollider); // need this for so it doesn't act like a static collider after destroying rigidbody
+
         dm.enabled = false;
         animator.enabled = false;
         //laserGroup.SetActive(false);
@@ -78,8 +78,14 @@ public class TakeDamage : MonoBehaviour
         GetComponent<AudioSource>().Play();
         Invoke("destroyDrone", 10f);
         //concaveCollider.enabled = false;
-
+        Invoke("destroyCollider", .1f);
     }
+
+    private void destroyCollider()
+    {
+        Destroy(meshCollider); // need this for so it doesn't act like a static collider after destroying rigidbody
+    }
+
     private void destroyDrone()
     {
         Destroy(gameObject);
