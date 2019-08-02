@@ -106,7 +106,7 @@ public class DroneMovement : MonoBehaviour
 
                 direction = Vector3.Slerp(direction, (destination - transform.position).normalized, turnSpeed * Time.deltaTime);
 
-                this.transform.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+                this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z)), _slerpStep * Time.deltaTime );
 
 
                 this.transform.position = transform.position + direction * Time.deltaTime * forwardSpeed;  //.Translate(Vector3.forward + Time.deltaTime * forwardSpeed);

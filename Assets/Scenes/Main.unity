@@ -7428,6 +7428,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11445746, guid: 7a135b1a2cb9c8f488d4dd00c55ab283, type: 3}
+      propertyPath: pointerValidColor.r
+      value: 0.10980391
+      objectReference: {fileID: 0}
+    - target: {fileID: 11445746, guid: 7a135b1a2cb9c8f488d4dd00c55ab283, type: 3}
+      propertyPath: pointerValidColor.g
+      value: 0.37480357
+      objectReference: {fileID: 0}
+    - target: {fileID: 11445746, guid: 7a135b1a2cb9c8f488d4dd00c55ab283, type: 3}
+      propertyPath: pointerValidColor.b
+      value: 0.8901961
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a135b1a2cb9c8f488d4dd00c55ab283, type: 3}
 --- !u!1 &1237598353 stripped
@@ -12583,7 +12595,7 @@ MonoBehaviour:
     m_Bits: 512
   sparkParticlePrefab: {fileID: 3363889129076440281, guid: be4db11f75359c041ac71be6a84fdabc,
     type: 3}
-  hitDamage: 20
+  hitDamage: 100
   useMouseForTesting: 1
   camera: {fileID: 1828431095}
   droneMaterial: {fileID: 2100000, guid: 19ffc6fff1290d545924f4f81817f739, type: 2}
@@ -12617,15 +12629,31 @@ MonoBehaviour:
   - name: 
     enemy: {fileID: 2950857845516931205, guid: 2f41e7fc2ff59554bbc736c8b93eea50, type: 3}
     count: 3
-    rate: 0.5
+    rate: 1
   - name: 
     enemy: {fileID: 2950857845516931205, guid: 2f41e7fc2ff59554bbc736c8b93eea50, type: 3}
     count: 6
-    rate: 2
+    rate: 1
   - name: 
     enemy: {fileID: 2950857845516931205, guid: 2f41e7fc2ff59554bbc736c8b93eea50, type: 3}
     count: 12
-    rate: 4
+    rate: 1
+  - name: 
+    enemy: {fileID: 2950857845516931205, guid: 2f41e7fc2ff59554bbc736c8b93eea50, type: 3}
+    count: 24
+    rate: 1
+  - name: 
+    enemy: {fileID: 2950857845516931205, guid: 2f41e7fc2ff59554bbc736c8b93eea50, type: 3}
+    count: 12
+    rate: 1
+  - name: 
+    enemy: {fileID: 2950857845516931205, guid: 2f41e7fc2ff59554bbc736c8b93eea50, type: 3}
+    count: 48
+    rate: 1
+  - name: 
+    enemy: {fileID: 2950857845516931205, guid: 2f41e7fc2ff59554bbc736c8b93eea50, type: 3}
+    count: 100
+    rate: 1
   spawnPoints:
   - {fileID: 1566321605}
   - {fileID: 1798883327}
