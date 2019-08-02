@@ -11,6 +11,7 @@ public class DroneMovement : MonoBehaviour
     [SerializeField] float redirectThreshold = 2f;
     [SerializeField] float forwardSpeed = .2f;
     [SerializeField] bool useDummyHelper = false;
+    [SerializeField] float turnSpeed = .1f;
 
     [Tooltip("Randomizing the distance to the new destination")]
     [SerializeField] Vector2 lookAheadRange = new Vector2(4, 8);
@@ -98,16 +99,17 @@ public class DroneMovement : MonoBehaviour
                     {
                         
                         destination = new Vector3(-.15f, 6.84f, -12.49f);
-                        direction = (destination - transform.position).normalized;
+                        //direction = Vector3.MoveTowards( direction, (destination - transform.position).normalized, turnSpeed * Time.deltaTime);
                     }
                         
                 }
 
+                direction = Vector3.Slerp(direction, (destination - transform.position).normalized, turnSpeed * Time.deltaTime);
 
-                this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), _slerpStep * Time.deltaTime);
+                this.transform.rotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
 
 
-                this.transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * forwardSpeed);  //.Translate(Vector3.forward + Time.deltaTime * forwardSpeed);
+                this.transform.position = transform.position + direction * Time.deltaTime * forwardSpeed;  //.Translate(Vector3.forward + Time.deltaTime * forwardSpeed);
                 break;
 
             case moveState.GOT_HIT:
@@ -130,8 +132,8 @@ public class DroneMovement : MonoBehaviour
         //print("max phi: " + (Mathf.PI / 16 - Mathf.PI / 2) * (180 / Mathf.PI));
         
         //Vector3 _pos = this.transform.position;
-        direction = new Vector3(x, y, z);
-        destination = transform.position + direction * lookAheadDistance;
+        
+        destination = transform.position + new Vector3(x, y, z) * lookAheadDistance;
 
         // If the new destination is farther away, rotate slower. In Psuedocode: dist[ance].isInverseTo(slerpStep)
         _slerpStep = _slerpStepFactor / dist;

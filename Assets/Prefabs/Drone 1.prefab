@@ -412,9 +412,10 @@ MonoBehaviour:
   redirectThreshold: 2
   forwardSpeed: 2
   useDummyHelper: 0
+  turnSpeed: 3
   lookAheadRange: {x: 7, y: 10}
   distanceLimit: 5
-  minY: 0
+  minY: 0.791875
   currentState: 0
 --- !u!114 &4046605370981501799
 MonoBehaviour:
@@ -2849,6 +2850,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4771761370504778212, guid: 8ae4aaf21654ddc4383393c61c3e5034,
         type: 3}
+      propertyPath: accelerationRate
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771761370504778212, guid: 8ae4aaf21654ddc4383393c61c3e5034,
+        type: 3}
       propertyPath: rootTransform
       value: 
       objectReference: {fileID: 2950857845516931205}
@@ -3036,6 +3042,11 @@ PrefabInstance:
         type: 3}
       propertyPath: distanceAdjustmentFactor
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771761370504778212, guid: 8ae4aaf21654ddc4383393c61c3e5034,
+        type: 3}
+      propertyPath: accelerationRate
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4771761370504778212, guid: 8ae4aaf21654ddc4383393c61c3e5034,
         type: 3}
@@ -3229,6 +3240,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4771761370504778212, guid: 8ae4aaf21654ddc4383393c61c3e5034,
         type: 3}
+      propertyPath: accelerationRate
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771761370504778212, guid: 8ae4aaf21654ddc4383393c61c3e5034,
+        type: 3}
       propertyPath: rootTransform
       value: 
       objectReference: {fileID: 2950857845516931205}
@@ -3416,6 +3432,11 @@ PrefabInstance:
         type: 3}
       propertyPath: distanceAdjustmentFactor
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771761370504778212, guid: 8ae4aaf21654ddc4383393c61c3e5034,
+        type: 3}
+      propertyPath: accelerationRate
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4771761370504778212, guid: 8ae4aaf21654ddc4383393c61c3e5034,
         type: 3}
@@ -3995,6 +4016,11 @@ PrefabInstance:
         type: 3}
       propertyPath: distanceAdjustmentFactor
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771761370504778212, guid: 8ae4aaf21654ddc4383393c61c3e5034,
+        type: 3}
+      propertyPath: accelerationRate
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4771761370504778212, guid: 8ae4aaf21654ddc4383393c61c3e5034,
         type: 3}

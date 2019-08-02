@@ -13,6 +13,9 @@ public class LaserLine : MonoBehaviour
     [SerializeField]  float originOffset = .1f;
     [SerializeField] float redirectThreshold = .5f;
     [SerializeField] float distanceAdjustmentFactor;
+
+    [Tooltip("How fast the laser changes direction")]
+    [SerializeField] float accelerationRate = 1.0f;
     float minY;
 
     [Tooltip("How much more deviation in the rotation of the lasers")]
@@ -20,12 +23,14 @@ public class LaserLine : MonoBehaviour
     public Transform rootTransform;
     private Vector3 destinationPoint;
     private Vector3 rayDirection;
+    private Vector3 velocityVector = Vector3.zero;
  
     //private Transform parentTransform;
     
     // Start is called before the first frame update
     void Start()
     {
+
         setDestination();
         line = GetComponent<LineRenderer>();
         minY = GameObject.Find("DroneBoundary/MinY").GetComponent<Transform>().position.y;
@@ -39,7 +44,12 @@ public class LaserLine : MonoBehaviour
         float dist = checkForNewDestination();
 
         line.SetPosition(0, rootTransform.position + rootTransform.forward * originOffset);
-        line.SetPosition(1, Vector3.MoveTowards(line.GetPosition(1), destinationPoint, Time.deltaTime * lazerAnimateSpeed * (dist * distanceAdjustmentFactor)));
+
+
+
+        velocityVector = Vector3.Lerp(velocityVector, destinationPoint, accelerationRate * Time.deltaTime);
+
+        line.SetPosition(1, Vector3.MoveTowards(line.GetPosition(1) , velocityVector, Time.deltaTime * lazerAnimateSpeed * (dist * distanceAdjustmentFactor)));
         
     }
 
@@ -68,5 +78,6 @@ public class LaserLine : MonoBehaviour
         
     }
     
+   
 
 }
