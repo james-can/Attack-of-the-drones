@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShellLifetimeExpiratoin : MonoBehaviour
 {
+    public Transform shellOrigin;
     public float lifetime = 5;
     // Start is called before the first frame update
     

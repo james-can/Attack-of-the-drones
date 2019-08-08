@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
+using Valve.VR.InteractionSystem;
 
 
 public class ViveInput : MonoBehaviour
@@ -18,17 +19,22 @@ public class ViveInput : MonoBehaviour
     public LayerMask mask; // "Enemy" is name of the layer used here
     private Transform shellDirectionVector;
     private AudioSource shotgunBlast;
-    private Transform shellOrigin;
-    private Transform rayOrigin;
+    //private Transform shellOrigin;
+    //private Transform rayOrigin;
     private MaterialPropertyBlock propBlock;
     private Renderer _renderer;
-
+    private GameObject selectedGun;
 
     [SerializeField] GameObject sparkParticlePrefab;
     [SerializeField] float hitDamage = 35f;
     [SerializeField] bool useMouseForTesting = false;
     [SerializeField] new Camera camera;
     [SerializeField] Material droneMaterial;
+    [SerializeField] Hand leftHand;
+    [SerializeField] Hand rightHand;
+
+
+    
 
     public delegate void GunFireAction();
     public static event GunFireAction OnGunFired;
@@ -42,8 +48,8 @@ public class ViveInput : MonoBehaviour
         Valve.VR.InteractionSystem.Teleport.instance.CancelTeleportHint();
         shotgunBlast = GameObject.Find("GunRelated/Gun").GetComponent<AudioSource>();
         shellDirectionVector = GameObject.Find("ShellDirectionVector").GetComponent<Transform>();
-        shellOrigin = GameObject.Find("ShellOrigination").GetComponent<Transform>();
-        rayOrigin = GameObject.Find("GunRelated/Gun").GetComponent<Transform>();
+        //shellOrigin = GameObject.Find("ShellOrigination").GetComponent<Transform>();
+        //rayOrigin = GameObject.Find("GunRelated/Gun").GetComponent<Transform>();
 
         propBlock = new MaterialPropertyBlock();
 
@@ -52,24 +58,53 @@ public class ViveInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SteamVR_Action_Boolean dropAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("drop");
         //Vector2 touch = SteamVR_Input.GetVector2Action("joystick_touchpad").axis;
 
+        if (dropAction.stateDown)
+        {
+            if (leftHand.GetDeviceIndex() == dropAction.trackedDeviceIndex)
+            {
+                leftHand.DetachObject(leftHand.AttachedObjects[0].attachedObject);
+
+            }
+            else if (rightHand.GetDeviceIndex() == dropAction.trackedDeviceIndex)
+            {
+                rightHand.DetachObject(rightHand.AttachedObjects[0].attachedObject);
+            }
+        }
+
+       
 
         //print("Trigger Axis: " + SteamVR_Input.GetAction<SteamVR_Action_Single>("triggerpullanimate").axis);
 
 
         //print("touch x : " + touch.x);
         //print("touch y: " + touch.y);
+
         
 
-        if (SteamVR_Input.GetAction<SteamVR_Action_Boolean>("fire").stateDown || (useMouseForTesting && Input.GetMouseButtonDown(0)))
+
+        SteamVR_Action_Boolean fireAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("fire");
+        if (fireAction.stateDown || (useMouseForTesting && Input.GetMouseButtonDown(0)))
         {
             
+
+           if(leftHand.GetDeviceIndex() == fireAction.trackedDeviceIndex)
+            {
+                selectedGun = leftHand.AttachedObjects[0].attachedObject;
+
+            }else if(rightHand.GetDeviceIndex() == fireAction.trackedDeviceIndex)
+            {
+                selectedGun = rightHand.AttachedObjects[0].attachedObject;
+            }
+
+            Transform shellOrigin = selectedGun.GetComponent<PickUpWeapon>().shellOrigin;
             
             Rigidbody rb = Instantiate<Rigidbody>(shellPrefab.GetComponent<Rigidbody>(), shellOrigin.position, shellOrigin.rotation);
 
             // If this were attached to the gun itself, could use Vector3.right here instead, it'd be a helluvalot simpler
-            rb.velocity =  Vector3.Normalize(shellDirectionVector.position - shellOrigin.position); 
+            rb.velocity =  Vector3.Normalize(shellOrigin.right); 
 
             if(!useMouseForTesting)
                 SteamVR_Input.GetAction<SteamVR_Action_Vibration>("Haptic").Execute(0, vibrationDuration, vibrationFrequency, vibrationAmplitute, source);
@@ -80,7 +115,8 @@ public class ViveInput : MonoBehaviour
            
 
             RaycastHit hit = new RaycastHit();
-            
+            Transform rayOrigin = selectedGun.transform;
+
             bool is2dHit = useMouseForTesting && Physics.Raycast(camera.ScreenPointToRay(Input.mousePosition), out hit, 300f, mask); // click to fire at the drones on desktop
             Ray r = new Ray(rayOrigin.position, rayOrigin.forward);
             if (is2dHit || Physics.Raycast(r, out hit, Mathf.Infinity, mask))
@@ -90,14 +126,14 @@ public class ViveInput : MonoBehaviour
 
                
 
-                ParticleSystem p = Instantiate<ParticleSystem>(sparkParticlePrefab.GetComponent<ParticleSystem>(), hit.point, Quaternion.LookRotation(hit.normal));
+                /*ParticleSystem p = Instantiate<ParticleSystem>(sparkParticlePrefab.GetComponent<ParticleSystem>(), hit.point, Quaternion.LookRotation(hit.normal));
 
                 ParticleSystem.MainModule main = p.main;
                 ParticleSystem.Burst burst = new ParticleSystem.Burst(0, 10 * (100 - td.health));
                 p.emission.SetBurst(0, burst);
 
                 main.startSpeed = 160f * ((100 - td.health) / 25);
-                main.startLifetime = .4f * (td.health / 100);
+                main.startLifetime = .4f * (td.health / 100);*/
                 
 
                 td.takeDamage(hitDamage, hit, r, mask);
