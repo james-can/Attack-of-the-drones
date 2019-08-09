@@ -5,7 +5,7 @@ using UnityEngine;
 public class WaveSpawner : MonoBehaviour
 {
     public enum SpawnState  { COUNTING, SPAWNING, WAITING }
-
+    [SerializeField][Tooltip("Cap on the number of enemy instances allowed")] int maxAllowedEnemies = 100;
 
     [System.Serializable]
     public class Wave
@@ -66,7 +66,10 @@ public class WaveSpawner : MonoBehaviour
 
         for(int i = 0; i < wave.count; i++)
         {
-            SpawnEnemy(wave.enemy);
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            if (enemies.Length < maxAllowedEnemies )
+                SpawnEnemy(wave.enemy);
+
             yield return new WaitForSeconds(1 / wave.rate);
             state = SpawnState.WAITING;
         }
@@ -74,7 +77,7 @@ public class WaveSpawner : MonoBehaviour
     void SpawnEnemy(Transform enemy)
     {
         print("spawnEneymy was called");
-        Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length - 1)];
+        Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
         Instantiate(enemy, randomSpawnPoint);
         
     }
@@ -93,6 +96,8 @@ public class WaveSpawner : MonoBehaviour
         }
         return true;
     }
+
+
 
     void WaveCompleted()
     {
