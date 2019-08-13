@@ -9,6 +9,7 @@ public class ViveInput : MonoBehaviour
 {
     
     public SteamVR_ActionSet shootingActionSet;
+    public SteamVR_ActionSet defaultActionSet;
     public GameObject shellPrefab;
     public float speed = 2;
     public SteamVR_Input_Sources source;
@@ -24,6 +25,8 @@ public class ViveInput : MonoBehaviour
     private MaterialPropertyBlock propBlock;
     private Renderer _renderer;
     private GameObject selectedGun;
+    private Vector3 leftHandGunPos = new Vector3(.56f, -.39f, 1.07f);
+    private Vector3 rightHandGunPos = new Vector3(.42f, -.34f, 1.04f);
 
     [SerializeField] GameObject sparkParticlePrefab;
     [SerializeField] float hitDamage = 35f;
@@ -32,9 +35,11 @@ public class ViveInput : MonoBehaviour
     [SerializeField] Material droneMaterial;
     [SerializeField] Hand leftHand;
     [SerializeField] Hand rightHand;
+    [SerializeField] Shader highlightShader;
+    [SerializeField] Shader standardShader;
 
 
-    
+
 
     public delegate void GunFireAction();
     public static event GunFireAction OnGunFired;
@@ -60,7 +65,7 @@ public class ViveInput : MonoBehaviour
     {
         SteamVR_Action_Boolean dropAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("drop");
         //Vector2 touch = SteamVR_Input.GetVector2Action("joystick_touchpad").axis;
-
+        
         if (dropAction.stateDown)
         {
             if (leftHand.GetDeviceIndex() == dropAction.trackedDeviceIndex)
@@ -74,15 +79,32 @@ public class ViveInput : MonoBehaviour
             }
         }
 
-       
+
 
         //print("Trigger Axis: " + SteamVR_Input.GetAction<SteamVR_Action_Single>("triggerpullanimate").axis);
 
 
         //print("touch x : " + touch.x);
         //print("touch y: " + touch.y);
+        SteamVR_Action_Boolean grabAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("grabpinch");
+        if (grabAction.stateDown)
+        {
 
-        
+            if (leftHand.GetDeviceIndex() == grabAction.trackedDeviceIndex)
+            {
+                Transform modelTransform = leftHand.AttachedObjects[0].attachedObject.transform.GetChild(0);
+                modelTransform.localPosition = leftHandGunPos;
+                modelTransform.gameObject.GetComponent<Renderer>().material.shader = standardShader;
+
+            }
+            else if (rightHand.GetDeviceIndex() == grabAction.trackedDeviceIndex)
+            {
+                Transform modelTransform = rightHand.AttachedObjects[0].attachedObject.transform.GetChild(0);
+                modelTransform.localPosition = rightHandGunPos;
+                modelTransform.gameObject.GetComponent<Renderer>().material.shader = standardShader;
+            }
+
+        }
 
 
         SteamVR_Action_Boolean fireAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("fire");
@@ -104,7 +126,7 @@ public class ViveInput : MonoBehaviour
             Rigidbody rb = Instantiate<Rigidbody>(shellPrefab.GetComponent<Rigidbody>(), shellOrigin.position, shellOrigin.rotation);
 
             // If this were attached to the gun itself, could use Vector3.right here instead, it'd be a helluvalot simpler
-            rb.velocity =  Vector3.Normalize(shellOrigin.right); 
+            rb.velocity =  Vector3.Normalize(-shellOrigin.forward); 
 
             if(!useMouseForTesting)
                 SteamVR_Input.GetAction<SteamVR_Action_Vibration>("Haptic").Execute(0, vibrationDuration, vibrationFrequency, vibrationAmplitute, source);
@@ -152,14 +174,15 @@ public class ViveInput : MonoBehaviour
     {
         
         print("OnObjectPickedup called");
-       
+        //selectedGun.transform.GetChild(0).position = 
         shootingActionSet.Activate();
+        
     }
 
     public void OnObjectDropped()
     {
         print("OnObjectDropped called");
-        shootingActionSet.Deactivate();
-        //defaultActionSet.Activate();
+        
+        defaultActionSet.Activate();
     }
 }

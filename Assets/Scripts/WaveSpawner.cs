@@ -67,6 +67,7 @@ public class WaveSpawner : MonoBehaviour
         for(int i = 0; i < wave.count; i++)
         {
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            //print("enemies length: " + enemies.Length);
             if (enemies.Length < maxAllowedEnemies )
                 SpawnEnemy(wave.enemy);
 
@@ -76,7 +77,7 @@ public class WaveSpawner : MonoBehaviour
     }
     void SpawnEnemy(Transform enemy)
     {
-        print("spawnEneymy was called");
+        
         Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
         Instantiate(enemy, randomSpawnPoint);
         

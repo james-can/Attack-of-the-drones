@@ -11,7 +11,6 @@ public class DroneMovement : MonoBehaviour
     [SerializeField] float redirectThreshold = 2f;
     [SerializeField] float forwardSpeed = .2f;
     [SerializeField] bool useDummyHelper = false;
-    [SerializeField] float turnSpeed = .1f;
 
     [Tooltip("Randomizing the distance to the new destination")]
     [SerializeField] Vector2 lookAheadRange = new Vector2(4, 8);
@@ -41,7 +40,7 @@ public class DroneMovement : MonoBehaviour
         if (useDummyHelper)
             dummyTransform = GameObject.Find("DummyHelper").GetComponent<Transform>();
 
-        
+
         //initialPos = transform.position;
         //initialRot = transform.rotation;
 
@@ -78,7 +77,7 @@ public class DroneMovement : MonoBehaviour
     float _slerpStep = 1f;
     void Update()
     {
-        
+
         switch (currentState)
         {
             case moveState.WANDER:
@@ -97,19 +96,18 @@ public class DroneMovement : MonoBehaviour
 
                     if (i == 9)  // The drone escaped the bounds, bring it back to right over the yard
                     {
-                        
+
                         destination = new Vector3(-.15f, 6.84f, -12.49f);
-                        //direction = Vector3.MoveTowards( direction, (destination - transform.position).normalized, turnSpeed * Time.deltaTime);
+                        direction = (destination - transform.position).normalized;
                     }
-                        
+
                 }
 
-                direction = Vector3.Slerp(direction, (destination - transform.position).normalized, turnSpeed * Time.deltaTime);
 
-                this.transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z)), _slerpStep * Time.deltaTime );
+                this.transform.rotation = Quaternion.Slerp(this.transform.rotation, Quaternion.LookRotation(direction), _slerpStep * Time.deltaTime);
 
 
-                this.transform.position = transform.position + direction * Time.deltaTime * forwardSpeed;  //.Translate(Vector3.forward + Time.deltaTime * forwardSpeed);
+                this.transform.position = Vector3.MoveTowards(transform.position, destination, Time.deltaTime * forwardSpeed);  //.Translate(Vector3.forward + Time.deltaTime * forwardSpeed);
                 break;
 
             case moveState.GOT_HIT:
@@ -120,20 +118,20 @@ public class DroneMovement : MonoBehaviour
         }
     }
 
-    
+
 
     void makeNewDestination()
     {
         lookAheadDistance = Random.Range(lookAheadRange.x, lookAheadRange.y);
         float x = Random.Range(-1f, 1f);    // 360 degrees of  randomness  
         float y = Random.Range(-.2f, .2f);  // only a 45 degree range of verticle randomness
-        float z = Random.Range(-1f, 1f );
+        float z = Random.Range(-1f, 1f);
         //print("min phi: " + (-Mathf.PI / 16 - Mathf.PI / 2) * (180 / Mathf.PI));
         //print("max phi: " + (Mathf.PI / 16 - Mathf.PI / 2) * (180 / Mathf.PI));
-        
+
         //Vector3 _pos = this.transform.position;
-        
-        destination = transform.position + new Vector3(x, y, z) * lookAheadDistance;
+        direction = new Vector3(x, y, z);
+        destination = transform.position + direction * lookAheadDistance;
 
         // If the new destination is farther away, rotate slower. In Psuedocode: dist[ance].isInverseTo(slerpStep)
         _slerpStep = _slerpStepFactor / dist;
@@ -156,13 +154,13 @@ public class DroneMovement : MonoBehaviour
 
         //TODO: Since boundary is square, it would be a lot more optimized just to do a range check for the destination, until more obstacles are added
         Ray r = new Ray(this.transform.position, direction);
-        RaycastHit[] hits = Physics.RaycastAll(r, lookAheadDistance , mask);
+        RaycastHit[] hits = Physics.RaycastAll(r, lookAheadDistance, mask);
 
-        
+
         return hits.Length != 0;
     }
 
-    
+
 
     /*public void takeDamage(int damage)
     {
