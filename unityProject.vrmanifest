@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.attackofthedrones.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "D:\\PersonalProjects\\Unity\\Attack-of-the-drones\\actions.json",
+      "action_manifest_path": "D:\\Projects\\Unity\\Attack-of-the-drones\\actions.json",
       "strings": {
         "en_us": {
           "name": "Attack of the Drones [Testing]"

@@ -50,7 +50,7 @@ public class ViveInput : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Valve.VR.InteractionSystem.Teleport.instance.CancelTeleportHint();
+        Valve.VR.InteractionSystem.Teleport.instance.CancelTeleportHint();
         shotgunBlast = GameObject.Find("GunRelated/Gun").GetComponent<AudioSource>();
         shellDirectionVector = GameObject.Find("ShellDirectionVector").GetComponent<Transform>();
         //shellOrigin = GameObject.Find("ShellOrigination").GetComponent<Transform>();
